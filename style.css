@@ -1,0 +1,110 @@
+.logo {
+    font-family: "Pixelify Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 5em;
+    margin-right: 10%;
+  }
+
+.not-scam img{
+    width: 4em;
+    height: 4em;
+}
+
+
+.start-btn img{
+    width: 5vw;
+    height: 10vh;
+    margin-left: 1em;
+}
+
+.start-btn{
+    background-color: rgba(157, 51, 173, 1);
+    color:white;
+    height: 2em;
+    width: 20vw;
+    padding: 1em 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    cursor: pointer;
+    border-radius: 1em;
+
+    font-family: "Pixelify Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 2em;
+}
+
+.ups-btn{
+    background-color: rgba(157, 51, 173, 1);
+    color:white;
+    height: 2em;
+    width: 4em;
+    padding: 0 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    cursor: pointer;
+    border-radius: 3em;
+
+    font-family: "Pixelify Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 2em;
+}
+
+.ups-btn:hover{
+    background-color: rgb(131, 49, 146)
+}
+
+.ups-btn:active{
+    background-color: rgb(118, 44, 131)
+}
+
+  .main {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    min-height: 100vh;
+    background-color: rgba(164, 101, 201, 1);
+    background-size: cover;
+}
+
+.shapka{
+    height: 20%;
+      background-color: rgba(187, 149, 195, 1);
+      display: grid;
+      column-gap: 5%;
+      align-items: center;
+      grid-template-columns: repeat(4, 19%);
+  
+  }
+
+  .container{
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+
+  }
+
+.pic img{
+    width: 30vw;
+    height: 50vh;
+}
+
+.logo-text{
+    color: black;
+    width: 60vw;
+    font-family: "Pixelify Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 2.7em;
+}
+
