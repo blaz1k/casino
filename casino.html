@@ -1,25 +1,281 @@
 <!DOCTYPE html>
+<html lang="ru">
 <head>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoWin - Главная</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Pixelify Sans", serif;
+            background-color: #8b278b;
+            color: white;
+            min-height: 100vh;
+            image-rendering: pixelated;
+        }
+        
+        /* Шапка */
+        header {
+            background-color: #8b278b;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #000000;
+            letter-spacing: 1px;
+        }
+        
+        .header-controls {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .btn {
+            font-family: "Pixelify Sans", serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 3px 3px 0 #000;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .btn-login {
+            background-color: #9d33ad;
+        }
+        
+        .btn-register {
+            background-color: #6a1b9a;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 5px 5px 0 #000;
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 2px 2px 0 #000;
+        }
+        
+        /* Основное содержимое */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            padding: 30px;
+            background-color: #8b278b;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        
+        .text-content {
+            flex: 1;
+            color: #fff;
+            text-shadow: 2px 2px 0 #000;
+        }
+        
+        .text-content h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        
+        .text-content p {
+            font-size: 1.8rem;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+        
+        .image-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .game-preview {
+            width: 100%;
+            max-width: 400px;
+            border: 5px solid #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+        }
+        
+        .start-btn {
+            background-color: #831d7e;
+            color: #ffffff;
+            font-size: 2rem;
+            padding: 15px 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 5px 5px 0 #000;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .start-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 8px 8px 0 #000;
+        }
+        
+        .start-btn:active {
+            transform: translateY(2px);
+            box-shadow: 3px 3px 0 #000;
+            
+        }
+        
+        .start-btn img {
+            width: 40px;
+            height: 40px;
+        }
+        
+        /* Декор элементы */
+        .pixel-corner {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border: 5px solid #ffffff;
+        }
+        
+        .corner-top-left {
+            top: 20px;
+            left: 20px;
+            border-right: none;
+            border-bottom: none;
+        }
+        
+        .corner-top-right {
+            top: 20px;
+            right: 20px;
+            border-left: none;
+            border-bottom: none;
+        }
+        
+        .corner-bottom-left {
+            bottom: 20px;
+            left: 20px;
+            border-right: none;
+            border-top: none;
+        }
+        
+        .corner-bottom-right {
+            bottom: 20px;
+            right: 20px;
+            border-left: none;
+            border-top: none;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 900px) {
+            .content-wrapper {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .text-content, .image-content {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .text-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .text-content p {
+                font-size: 1.5rem;
+            }
+            
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .btn {
+                font-size: 1.2rem;
+                padding: 8px 15px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="main">
-        <div class= "shapka">
-            <div class="logo">AlgoWin</div>
-            <div class="not-scam"><img src="notscam.png"></div>
-            <div class="reg-btn ups-btn"> Войти </div>
-            <div class="log-btn ups-btn"> Регистрация </div>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="logo">AlgoWin</div>
+        <div class="header-controls">
+            <a href="#" class="btn btn-login">Войти</a>
+            <a href="#" class="btn btn-register">Регистрация</a>
         </div>
-        <div class = "container">
-            <div class="logo-text">
-                <h4>     ДаБро пАжалаВат в наше казичо!!! Вывод без комиссий, много розыгрышей, мало рекламы и высокий шанс победить!!! проАавайте ваши квартиры и депайте всё прямо сюда!!!</h4>
-                </div>
-        <div class="sreenshot">
-            <div class="pic"> <img src="image 18.png"></div>
-            <div class='start-btn'>Начать <img src="play.png"></div>
-        </div>
+    </header>
+    
+    <!-- Основное содержимое -->
+    <div class="main-content">
+        <!-- Декоративные уголки -->
+        <div class="pixel-corner corner-top-left"></div>
+        <div class="pixel-corner corner-top-right"></div>
+        <div class="pixel-corner corner-bottom-left"></div>
+        <div class="pixel-corner corner-bottom-right"></div>
+        
+        <div class="content-wrapper">
+            <div class="text-content">
+                <h1>ДАБРO пАЖАЛАВАТ В НАШЕ КАЗИЧO!</h1>
+                <p>Вывод без комиссий, много розыгрышей, мало рекламы и высокий шанс победить!!!</p>
+                <p>проАавайте ваши квартиры и депайте всё прямо сюда!!!</p>
+            </div>
+            
+            <div class="image-content">
+                <img src="image 18.png" alt="Игровой автомат" class="game-preview">
+                <a href="game1.html" class="start-btn">
+                    Начать
+                    <img src="play.png" alt="Играть">
+                </a>
+            </div>
         </div>
     </div>
+
+    <script>
+        // Здесь можно добавить интерактивность
+        document.querySelector('.btn-login').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Форма входа будет здесь');
+        });
+        
+        document.querySelector('.btn-register').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Форма регистрации будет здесь');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Казино</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Общие стили */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: linear-gradient(to bottom, #2c3e50, #3498db);
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            color: #eee;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        h1 {
+            color: #fff;
+            text-shadow: 2px 2px 4px #000000;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Стили для рулетки */
+        #roulette-container {
+            margin-top: 30px;
+        }
+
+        #roulette-wheel {
+            width: 200px;
+            height: 200px;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+            transition: transform 5s ease-in-out;
+        }
+
+        #roulette-wheel:after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: 50%;
+            margin-left: -7.5px;
+            border-width: 15px 8px;
+            border-style: solid;
+            border-color: #fff transparent transparent transparent;
+        }
+
+        .segment {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: 100% 100%;
+            text-align: center;
+            line-height: 100px;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .red { background-color: #e74c3c; }
+        .black { background-color: #34495e; }
+
+        /* Форма для ставок */
+        #bet-form {
+            margin-top: 20px;
+        }
+
+        #bet-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        #bet-form input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #bet-form button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #27ae60;
+        }
+
+        /* Скрываем описание казино */
+        .hidden {
+            display: none;
+        }
+
+        #balance {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        #clicker-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            text-align: center;
+            padding-top: 20vh;
+        }
+
+        #clicker-button {
+            padding: 20px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        #clicker-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        #clicks-count {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Добро пожаловать в наше казино</h1>
+        <p id="balance">Ваш баланс: <span id="balance-amount">1000</span> монет</p>
+        <p>Испытайте удачу и сорвите куш!</p>
+
+        <button class="button" id="show-description">Подробнее о казино</button>
+        <div id="casino-description" class="hidden">
+            <h2>Описание Казино</h2>
+            <p>Наше казино – это место, где сбываются мечты (или разбиваются вдребезги!). Рискните и, возможно, вы станете следующим миллионером!</p>
+            <ul>
+                <li>Зарабатывайте (или теряйте) деньги</li>
+                <li>Ощутите азарт</li>
+                <li>Проверьте свою удачу</li>
+            </ul>
+        </div>
+
+        <button class="button" id="refill-balance">Пополнить баланс</button>
+
+        <div id="roulette-container">
+            <h2>Рулетка</h2>
+            <div id="roulette-wheel">
+                <div class="segment red" style="transform: rotate(0deg);">Красное</div>
+                <div class="segment black" style="transform: rotate(18deg);">Черное</div>
+                <div class="segment red" style="transform: rotate(36deg);">Красное</div>
+                <div class="segment black" style="transform: rotate(54deg);">Черное</div>
+                <div class="segment red" style="transform: rotate(72deg);">Красное</div>
+                <div class="segment black" style="transform: rotate(90deg);">Черное</div>
+                <div class="segment red" style="transform: rotate(108deg);">Красное</div>
+                <div class="segment black" style="transform: rotate(126deg);">Черное</div>
+                <div class="segment red" style="transform: rotate(144deg);">Красное</div>
+                <div class="segment black" style="transform: rotate(162deg);">Черное</div>
+                <div class="segment red" style="transform: rotate(180deg);">Красное</div>
+                <div class="segment black" style="transform: rotate(198deg);">Черное</div>
+                <div class="segment red" style="transform: rotate(216deg);">Красное</div>
+                <div class="segment black" style="transform: rotate(234deg);">Черное</div>
+                <div class="segment red" style="transform: rotate(252deg);">Красное</div>
+                <div class="segment black" style="transform: rotate(270deg);">Черное</div>
+                <div class="segment red" style="transform: rotate(288deg);">Красное</div>
+                <div class="segment black" style="transform: rotate(306deg);">Черное</div>
+                <div class="segment red" style="transform: rotate(324deg);">Красное</div>
+                <div class="segment black" style="transform: rotate(342deg);">Черное</div>
+                <div class="segment red" style="transform: rotate(0deg);">Красное</div>
+            </div>
+
+            <form id="bet-form">
+                <label for="bet-amount">Сумма ставки:</label>
+                <input type="number" id="bet-amount" placeholder="Введите сумму" required>
+                <label>Выберите цвет:</label>
+                <button type="button" class="button" data-color="red">Красное</button>
+                <button type="button" class="button" data-color="black">Черное</button>
+                <br>
+                <button type="button" class="button" id="spin-button">Вращать!</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="clicker-container">
+        <p id="clicks-count">Кликов: <span id="clicks-count-value">0</span></p>
+        <button id="clicker-button">Кликни меня!</button>
+        <button class="button" id="back-to-game">Вернуться в игру</button>
+    </div>
+
+    <script>
+        let balance = 1000;
+        document.getElementById('balance-amount').innerText = balance;
+
+        document.getElementById('show-description').addEventListener('click', function() {
+            document.getElementById('casino-description').classList.toggle('hidden');
+        });
+
+        const spinButton = document.getElementById('spin-button');
+        const rouletteWheel = document.getElementById('roulette-wheel');
+        let selectedColor = null;
+
+        // Выбор цвета
+        document.querySelectorAll('#bet-form button[data-color]').forEach(button => {
+            button.addEventListener('click', function() {
+                selectedColor = this.dataset.color;
+                console.log('Выбран цвет:', selectedColor);
+            });
+        });
+
+        spinButton.addEventListener('click', function() {
+            if (!selectedColor) {
+                alert('Пожалуйста, выберите цвет!');
+                return;
+            }
+
+            const betAmount = parseInt(document.getElementById('bet-amount').value);
+            if (!betAmount || betAmount <= 0 || betAmount > balance) {
+                alert('Пожалуйста, введите сумму ставки в пределах вашего баланса!');
+                return;
+            }
+
+            // Запускаем вращение
+            spinRoulette();
+
+            // Определяем победивший цвет (случайно)
+            setTimeout(() => {
+                const winningColor = Math.random() < 0.5 ? 'red' : 'black';
+                alert(`Выпало: ${winningColor}!`);
+
+                // Проверяем, выиграл ли игрок
+                if (winningColor === selectedColor) {
+                    balance += betAmount;
+                    alert('Поздравляем, вы выиграли!');
+                } else {
+                    balance -= betAmount;
+                    alert('К сожалению, вы проиграли.');
+                }
+
+                document.getElementById('balance-amount').innerText = balance;
+
+                if (balance <= 0) {
+                    alert('Ваш баланс исчерпан. Игра окончена.');
+                    spinButton.disabled = true;
+                }
+
+                // Сбрасываем вращение
+                rouletteWheel.style.transition = 'none';
+                rouletteWheel.style.transform = 'rotate(0deg)';
+                setTimeout(() => {
+                    rouletteWheel.style.transition = 'transform 5s ease-in-out';
+                }, 50); // Небольшая задержка для сброса transition
+            }, 5500); // Время вращения + небольшая задержка
+        });
+
+        function spinRoulette() {
+            const randomRotation = Math.floor(Math.random() * 360) + 3600; // Вращаем как минимум на 10 оборотов
+            rouletteWheel.style.transform = `rotate(${randomRotation}deg)`;
+        }
+
+        let clicks = 0;
+
+        document.getElementById('refill-balance').addEventListener('click', function() {
+            document.getElementById('clicker-container').style.display = 'block';
+        });
+
+        document.getElementById('clicker-button').addEventListener('click', function() {
+            clicks++;
+            document.getElementById('clicks-count-value').innerText = clicks;
+        });
+
+        document.getElementById('back-to-game').addEventListener('click', function() {
+            document.getElementById('clicker-container').style.display = 'none';
+            balance += clicks * 10; // Каждый клик добавляет 10 монет
+            document.getElementById('balance-amount').innerText = balance;
+            clicks = 0;
+            document.getElementById('clicks-count-value').innerText = clicks;
+        });
+    </script>
+</body>
+</html>

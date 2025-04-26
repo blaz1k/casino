@@ -12,7 +12,6 @@
             color: white;
             text-align: center;
             margin: 0;
-            padding: 20px;
             image-rendering: pixelated;
         }
         
@@ -112,11 +111,7 @@
             box-shadow: none;
         }
         
-        .balance {
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 0 #000;
-        }
+        
         
         .bet-controls {
             margin: 20px 0;
@@ -194,13 +189,100 @@
             0% { opacity: 0; }
             100% { opacity: 0.7; }
         }
+        header {
+            background-color: #8b278b;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #000000;
+            letter-spacing: 1px;
+        }
+        
+        .header-controls {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .balance {
+            font-size: 1.5rem;
+            background-color: #641260;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 3px solid #9c399c;
+        }
+        
+        .btn-b {
+            font-family: "Pixelify Sans", serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 3px 3px 0 #000;
+        }
+        .btn-deposit {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .btn-withdraw {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .btn-deposit:hover {
+            transform: translateY(-2px);
+            background-color: #4CAF50;
+            box-shadow: 5px 5px 0 rgb(49, 49, 49);
+        }
+        
+        .btn-deposit:active {
+            transform: translateY(1px);
+            background-color: #4CAF50;
+            box-shadow: 2px 2px 0 #000;
+        }
+
+
+        .btn-withdraw:hover {
+            transform: translateY(-2px);
+            background-color: #f44336;
+            box-shadow: 5px 5px 0 rgb(49, 49, 49);
+        }
+        
+        .btn-withdraw:active {
+            transform: translateY(1px);
+            background-color: #f44336;
+            box-shadow: 2px 2px 0 #000;
+        }
+
+
     </style>
+
+<header>
+    <div class="logo">AlgoWin</div>
+    <div class="header-controls">
+        <div class="balance">Баланс: <span id="balance">1000</span> ₽</div>
+        <button class="btn-b btn-deposit" id="deposit-btn">Пополнить</button>
+        <button class="btn-b btn-withdraw" id="withdraw-btn">Вывести</button>
+    </div>
+</header>
+
 </head>
 <body>
     <div class="game-container">
         <h1>CASINO</h1>
-        
-        <div class="balance">Баланс: <span id="balance">1000</span> ₽</div>
+    
         
         <div class="bet-controls">
             <span>Ставка: <span id="current-bet">10</span> ₽</span>
@@ -297,6 +379,10 @@
             const newBet = currentBet + amount;
             if (newBet >= 1 && newBet <= balance) {
                 currentBet = newBet;
+                updateUI();
+            }
+            if (currentBet > balance){
+                currentBet = 10
                 updateUI();
             }
         }
